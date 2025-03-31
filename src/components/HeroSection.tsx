@@ -115,7 +115,7 @@ const HeroSection = () => {
 
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white/70 to-transparent"></div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes expand {
           0% { transform: scaleX(0); }
           100% { transform: scaleX(1); }
