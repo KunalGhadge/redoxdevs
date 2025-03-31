@@ -12,17 +12,25 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-github-bg">
       <Header />
-      <main>
+      <main className="pt-16">
         <HeroSection />
-        <ServicesSection />
+        <div className="border-t border-github-border bg-github-muted">
+          <ServicesSection />
+        </div>
         <WorkSection />
-        <ToolsSection />
+        <div className="border-t border-github-border bg-github-muted">
+          <ToolsSection />
+        </div>
         <ProcessSection />
-        <TestimonialsSection />
+        <div className="border-t border-github-border bg-github-muted">
+          <TestimonialsSection />
+        </div>
         <AboutSection />
-        <ContactSection />
+        <div className="border-t border-github-border bg-github-muted">
+          <ContactSection />
+        </div>
       </main>
       <Footer />
     </div>
