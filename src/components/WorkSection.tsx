@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const portfolioItems = [
   {
@@ -11,42 +12,48 @@ const portfolioItems = [
     title: "TechNova Launch",
     description: "High-converting landing page with interactive animations for a tech startup's product launch.",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    features: "Motion effects, 3D elements, SVG animations"
+    features: "Motion effects, 3D elements, SVG animations",
+    path: "/project/technova-launch"
   },
   {
     category: "landing-page",
     title: "FinEdge Banking",
     description: "Futuristic landing page for a digital banking solution with animated data visualizations.",
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3",
-    features: "Particle effects, scroll animations, glassmorphism"
+    features: "Particle effects, scroll animations, glassmorphism",
+    path: "/project/finedge-banking"
   },
   {
     category: "landing-page",
     title: "Pulse Health App",
     description: "Award-winning landing page with interactive features and animated user flows.",
     image: "https://images.unsplash.com/photo-1581093196277-9f6070dd1dc3",
-    features: "Lottie animations, micro-interactions, theme switching"
+    features: "Lottie animations, micro-interactions, theme switching",
+    path: "/project/pulse-health-app"
   },
   {
     category: "landing-page",
     title: "Vedic Ayurveda",
     description: "Premium landing page for an Indian Ayurvedic wellness product line with cultural motifs.",
     image: "https://images.unsplash.com/photo-1611074818835-ccd98ea069f8",
-    features: "Scroll storytelling, custom animations, cultural design elements"
+    features: "Scroll storytelling, custom animations, cultural design elements",
+    path: "/project/vedic-ayurveda"
   },
   {
     category: "landing-page",
     title: "SwiftLearn Education",
     description: "Conversion-optimized landing page for an online learning platform with gamified elements.",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8",
-    features: "Interactive demos, testimonial carousels, CTAs"
+    features: "Interactive demos, testimonial carousels, CTAs",
+    path: "/project/swiftlearn-education"
   },
   {
     category: "landing-page",
     title: "Eco Solutions",
     description: "Engaging landing page for a sustainable products company with interactive impact calculators.",
     image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09",
-    features: "Interactive calculators, parallax scrolling, eco animations"
+    features: "Interactive calculators, parallax scrolling, eco animations",
+    path: "/project/eco-solutions"
   },
 ];
 
@@ -97,9 +104,11 @@ const WorkSection = () => {
                 {item.title}
               </h3>
               <p className="text-navy-light mb-4">{item.description}</p>
-              <Button variant="outline" size="sm" className="gap-2 group-hover:border-redox group-hover:text-redox transition-colors">
-                View Project <ExternalLink className="h-4 w-4" />
-              </Button>
+              <Link to={item.path}>
+                <Button variant="outline" size="sm" className="gap-2 group-hover:border-redox group-hover:text-redox transition-colors">
+                  View Project <ExternalLink className="h-4 w-4" />
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         ))}
