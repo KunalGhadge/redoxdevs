@@ -3,29 +3,17 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const team = [
   {
-    name: "Alex Morgan",
-    position: "Founder & CEO",
+    name: "Rahul Sharma",
+    position: "Lead Developer & Designer",
     image: "https://randomuser.me/api/portraits/men/76.jpg",
-    bio: "10+ years of experience in web development and digital strategy.",
+    bio: "10+ years of experience in web development with expertise in creating high-converting landing pages.",
   },
   {
-    name: "Jamie Taylor",
-    position: "Design Director",
+    name: "Priya Patel",
+    position: "Marketing Strategist & Researcher",
     image: "https://randomuser.me/api/portraits/women/63.jpg",
-    bio: "Award-winning designer with expertise in UI/UX and brand identity.",
-  },
-  {
-    name: "Chris Roberts",
-    position: "Lead Developer",
-    image: "https://randomuser.me/api/portraits/men/42.jpg",
-    bio: "Full-stack developer specialized in building high-performance websites.",
-  },
-  {
-    name: "Jordan Lee",
-    position: "Project Manager",
-    image: "https://randomuser.me/api/portraits/women/33.jpg",
-    bio: "Experienced in leading complex web projects from concept to completion.",
-  },
+    bio: "Expert in market research and digital strategy that helps businesses maximize landing page conversions.",
+  }
 ];
 
 const AboutSection = () => {
@@ -37,15 +25,15 @@ const AboutSection = () => {
             About <span className="text-redox">REDOX Devs</span>
           </h2>
           <p className="text-lg text-navy-light mb-6">
-            Founded in 2015, REDOX Devs is a team of passionate web designers and developers dedicated to creating exceptional digital experiences that help businesses grow.
+            Founded in 2019, REDOX Devs is a specialized team dedicated to creating exceptional landing pages that help businesses convert visitors into customers.
           </p>
           <p className="text-lg text-navy-light mb-6">
-            We combine technical expertise with creative innovation to deliver websites that not only look stunning but also perform exceptionally well, driving real business results for our clients.
+            We combine technical expertise with creative innovation to deliver landing pages that not only look stunning but also perform exceptionally well, driving real business results for our clients across India and globally.
           </p>
           <div className="grid grid-cols-2 gap-8 mt-8">
             <div>
               <h3 className="text-4xl font-bold text-redox mb-2">100+</h3>
-              <p className="text-navy-light">Projects Completed</p>
+              <p className="text-navy-light">Landing Pages Delivered</p>
             </div>
             <div>
               <h3 className="text-4xl font-bold text-redox mb-2">95%</h3>
@@ -65,7 +53,7 @@ const AboutSection = () => {
           <div className="absolute -top-6 -left-6 w-32 h-32 bg-redox/10 rounded-full blur-2xl"></div>
           <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-redox/10 rounded-full blur-2xl"></div>
           <img 
-            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7" 
+            src="https://images.unsplash.com/photo-1552581234-26160f608093" 
             alt="REDOX Devs team" 
             className="rounded-lg shadow-lg w-full h-full object-cover"
             style={{ aspectRatio: "3/2" }}
@@ -77,7 +65,7 @@ const AboutSection = () => {
         <h3 className="text-2xl md:text-3xl font-bold text-navy-dark mb-10 text-center">
           Meet Our Team
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {team.map((member, index) => (
             <Card key={index} className="border-gray-100 overflow-hidden">
               <div className="h-64 overflow-hidden">

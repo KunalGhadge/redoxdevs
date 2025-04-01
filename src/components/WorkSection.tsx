@@ -14,25 +14,11 @@ const portfolioItems = [
     features: "Motion effects, 3D elements, SVG animations"
   },
   {
-    category: "e-commerce",
-    title: "Urban Threads Clothing",
-    description: "Modern e-commerce platform with seamless checkout and immersive product showcases.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
-    features: "Product zoom, color switching, micro-interactions"
-  },
-  {
     category: "landing-page",
     title: "FinEdge Banking",
     description: "Futuristic landing page for a digital banking solution with animated data visualizations.",
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3",
     features: "Particle effects, scroll animations, glassmorphism"
-  },
-  {
-    category: "corporate",
-    title: "Summit Financial",
-    description: "Professional website with dynamic content transitions and personalized user journeys.",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
-    features: "Smooth page transitions, animated graphs, parallax"
   },
   {
     category: "landing-page",
@@ -42,20 +28,32 @@ const portfolioItems = [
     features: "Lottie animations, micro-interactions, theme switching"
   },
   {
-    category: "e-commerce",
-    title: "Gourmet Direct",
-    description: "Artisanal food delivery service with animated product storytelling and user experience.",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-    features: "Food animations, scroll effects, cart animations"
+    category: "landing-page",
+    title: "Vedic Ayurveda",
+    description: "Premium landing page for an Indian Ayurvedic wellness product line with cultural motifs.",
+    image: "https://images.unsplash.com/photo-1611074818835-ccd98ea069f8",
+    features: "Scroll storytelling, custom animations, cultural design elements"
+  },
+  {
+    category: "landing-page",
+    title: "SwiftLearn Education",
+    description: "Conversion-optimized landing page for an online learning platform with gamified elements.",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8",
+    features: "Interactive demos, testimonial carousels, CTAs"
+  },
+  {
+    category: "landing-page",
+    title: "Eco Solutions",
+    description: "Engaging landing page for a sustainable products company with interactive impact calculators.",
+    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09",
+    features: "Interactive calculators, parallax scrolling, eco animations"
   },
 ];
 
 const WorkSection = () => {
   const [activeTab, setActiveTab] = useState("all");
 
-  const filteredItems = activeTab === "all" 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeTab);
+  const filteredItems = portfolioItems;
 
   return (
     <section id="work" className="section bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -66,60 +64,46 @@ const WorkSection = () => {
       
       <div className="text-center max-w-3xl mx-auto mb-12 relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-navy-dark mb-4">
-          Our <span className="text-redox">Front-End</span> Work
+          Our <span className="text-redox">Landing Page</span> Projects
         </h2>
         <p className="text-lg text-navy-light">
-          Stunning, high-performance websites and landing pages that convert visitors into customers.
+          We specialize exclusively in creating stunning, high-performance landing pages that convert visitors into customers.
         </p>
       </div>
 
-      <Tabs defaultValue="all" className="w-full relative z-10" onValueChange={setActiveTab}>
-        <div className="flex justify-center mb-8">
-          <TabsList className="bg-white/80 backdrop-blur-sm">
-            <TabsTrigger value="all">All Projects</TabsTrigger>
-            <TabsTrigger value="landing-page">Landing Pages</TabsTrigger>
-            <TabsTrigger value="e-commerce">E-Commerce</TabsTrigger>
-            <TabsTrigger value="corporate">Corporate</TabsTrigger>
-          </TabsList>
-        </div>
-
-        <TabsContent value={activeTab} className="mt-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item, index) => (
-              <Card 
-                key={index} 
-                className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-500 group"
-              >
-                <div className="relative overflow-hidden" style={{ height: "240px" }}>
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                    <p className="text-white text-sm font-medium">{item.features}</p>
-                  </div>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <CardContent className="p-6 bg-white">
-                  <div className="flex items-center mb-2">
-                    <span className="text-xs uppercase tracking-wider text-redox font-semibold">
-                      {item.category === "landing-page" ? "Landing Page" : 
-                       item.category === "e-commerce" ? "E-Commerce" : "Corporate"}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-navy-dark mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-navy-light mb-4">{item.description}</p>
-                  <Button variant="outline" size="sm" className="gap-2 group-hover:border-redox group-hover:text-redox transition-colors">
-                    View Project <ExternalLink className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+        {filteredItems.map((item, index) => (
+          <Card 
+            key={index} 
+            className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-500 group"
+          >
+            <div className="relative overflow-hidden" style={{ height: "240px" }}>
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+                <p className="text-white text-sm font-medium">{item.features}</p>
+              </div>
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <CardContent className="p-6 bg-white">
+              <div className="flex items-center mb-2">
+                <span className="text-xs uppercase tracking-wider text-redox font-semibold">
+                  Landing Page
+                </span>
+              </div>
+              <h3 className="text-xl font-semibold text-navy-dark mb-2">
+                {item.title}
+              </h3>
+              <p className="text-navy-light mb-4">{item.description}</p>
+              <Button variant="outline" size="sm" className="gap-2 group-hover:border-redox group-hover:text-redox transition-colors">
+                View Project <ExternalLink className="h-4 w-4" />
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
       <div className="mt-12 text-center relative z-10">
         <Button 

@@ -1,40 +1,44 @@
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { Star, IndianRupee } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    position: "CEO, Urban Threads",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    name: "Vikram Mehta",
+    position: "CEO, TechVantage Solutions, Mumbai",
+    image: "https://randomuser.me/api/portraits/men/44.jpg",
     content:
-      "REDOX Devs transformed our online store with a beautiful, user-friendly design that has significantly increased our conversion rates. Their attention to detail and focus on performance has been invaluable.",
+      "REDOX Devs created an outstanding landing page for our SaaS product launch that exceeded our expectations. The conversion rates have been 40% higher than our previous site. Their understanding of the Indian market helped us connect with our target audience.",
     rating: 5,
+    location: "Mumbai, India"
   },
   {
-    name: "Michael Chen",
-    position: "Marketing Director, Summit Financial",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: "Ananya Sharma",
+    position: "Marketing Director, Wellness Ayurveda",
+    image: "https://randomuser.me/api/portraits/women/32.jpg",
     content:
-      "Working with REDOX Devs was a game-changer for our firm. They created a professional website that perfectly represents our brand and has helped us attract high-value clients. Highly recommended!",
+      "Our Ayurvedic product line needed a landing page that balanced modern design with our traditional values. REDOX Devs delivered perfectly, creating a page that respects our heritage while driving impressive sales. Best investment we've made!",
     rating: 5,
+    location: "Delhi, India"
   },
   {
-    name: "Emily Rodriguez",
-    position: "Founder, Pulse Health",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    name: "Raj Patel",
+    position: "Founder, EduReach Academy",
+    image: "https://randomuser.me/api/portraits/men/68.jpg",
     content:
-      "As a startup, we needed a website that could grow with us. REDOX Devs delivered a scalable solution that has been instrumental in our early success and fundraising efforts.",
+      "As an education startup in Bangalore, we needed a landing page that could appeal to both students and parents. The team at REDOX understood our unique requirements and delivered a solution that has significantly improved our enrollment rates.",
     rating: 5,
+    location: "Bangalore, India"
   },
   {
-    name: "David Park",
-    position: "Owner, Gourmet Direct",
-    image: "https://randomuser.me/api/portraits/men/11.jpg",
+    name: "Priya Malhotra",
+    position: "Director, Glamour Fashion House",
+    image: "https://randomuser.me/api/portraits/women/11.jpg",
     content:
-      "The custom ordering system REDOX Devs built for us has streamlined our operations and improved customer satisfaction. Their ongoing support has been exceptional.",
+      "The landing page REDOX Devs created for our festive collection launch was stunning! It perfectly captured the essence of our brand while making the shopping experience seamless. Our conversion rate doubled within the first week!",
     rating: 5,
+    location: "Jaipur, India"
   },
 ];
 
@@ -46,7 +50,7 @@ const TestimonialsSection = () => {
           Client <span className="text-redox">Testimonials</span>
         </h2>
         <p className="text-lg text-navy-light">
-          Don't just take our word for it. See what our clients have to say about working with us.
+          See what our clients from across India have to say about our landing page services.
         </p>
       </div>
 
@@ -54,7 +58,7 @@ const TestimonialsSection = () => {
         <Carousel className="w-full">
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-4">
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2 pl-4">
                 <Card className="border-gray-100 h-full">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-1 mb-4">
@@ -71,7 +75,13 @@ const TestimonialsSection = () => {
                       />
                       <div>
                         <h4 className="font-semibold text-navy-dark">{testimonial.name}</h4>
-                        <p className="text-sm text-navy-light">{testimonial.position}</p>
+                        <div className="flex items-center gap-1">
+                          <p className="text-sm text-navy-light">{testimonial.position}</p>
+                        </div>
+                        <p className="text-xs text-redox flex items-center gap-1 mt-1">
+                          <span className="inline-block w-2 h-2 bg-redox rounded-full"></span>
+                          {testimonial.location}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
