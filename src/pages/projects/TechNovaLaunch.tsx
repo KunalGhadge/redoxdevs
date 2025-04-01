@@ -6,20 +6,20 @@ const TechNovaLaunch = () => {
   return (
     <ProjectLayout
       title="TechNova Launch"
-      description="High-converting landing page with interactive animations for a tech startup's product launch. The page was designed to showcase the innovative features of their new AI-powered productivity tool while capturing leads and generating pre-launch interest."
+      description="High-converting landing page with interactive animations for a tech startup's product launch. The page features immersive 3D elements and motion effects that highlight the product's innovative features."
       image="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
       features={[
-        "Motion effects that highlight product features",
-        "3D elements that users can interact with",
-        "SVG animations that explain complex concepts",
-        "Lead capture form with multi-step process",
-        "Performance optimized for fast loading",
-        "Mobile-first responsive design"
+        "Interactive 3D product showcase",
+        "Motion-triggered animations",
+        "SVG path animations for feature highlights",
+        "Animated statistics counters",
+        "Multi-step product tour",
+        "Conversion-focused CTA placements"
       ]}
-      challenge="TechNova needed a landing page that would effectively communicate their complex AI product in an intuitive way while generating excitement for their upcoming launch. They needed to build a waitlist of interested users and collect valuable market feedback before the full product release."
-      solution="We created an interactive landing page that brought their product to life through strategic animations and visual storytelling. We implemented a multi-step sign-up process that not only captured leads but also collected valuable information about user needs and expectations."
-      results="The landing page generated over 5,000 waitlist signups in the first week, with a conversion rate of 32% - significantly higher than industry averages. The insights gathered from the sign-up process helped the client refine their product features before launch."
-      technologies={["React.js", "GSAP Animations", "Three.js", "Framer Motion", "Firebase", "Tailwind CSS"]}
+      challenge="TechNova needed a landing page that would effectively communicate their complex AI-powered product to a non-technical audience while generating pre-launch interest and email signups."
+      solution="We created an engaging landing page with interactive elements that simplify complex concepts through animations and visual storytelling. We implemented a strategic conversion funnel with carefully placed CTAs to guide visitors toward signing up."
+      results="The landing page achieved a 65% conversion rate for email signups, significantly exceeding industry standards. The average engagement time was 4:35 minutes, with 72% of visitors viewing the entire product showcase."
+      technologies={["React.js", "Three.js", "GSAP Animations", "WebGL", "Framer Motion", "Tailwind CSS"]}
     />
   );
 };

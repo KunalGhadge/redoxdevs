@@ -6,20 +6,20 @@ const PulseHealthApp = () => {
   return (
     <ProjectLayout
       title="Pulse Health App"
-      description="Award-winning landing page with interactive features and animated user flows for a health and wellness application. The page effectively communicates how the app helps users track and improve their health metrics through personalized coaching."
+      description="Award-winning landing page with interactive features and animated user flows for a health monitoring application. The page showcases how the app works through interactive demos and animations."
       image="https://images.unsplash.com/photo-1581093196277-9f6070dd1dc3"
       features={[
-        "Lottie animations showing app functionality",
-        "Micro-interactions providing seamless navigation",
-        "Theme switching between light and dark modes",
-        "Interactive app demo without downloading",
-        "Animated health metrics charts",
-        "Virtual coach introduction sequence"
+        "Interactive app flow demonstrations",
+        "Lottie animations showing key features",
+        "User journey visualization",
+        "Dark/light mode toggle with theme switching",
+        "Micro-interactions on scroll and hover",
+        "Device mockup carousels showing app interfaces"
       ]}
-      challenge="Pulse Health needed to stand out in the crowded health app market by clearly demonstrating the unique value proposition of their AI health coach feature while making complex health tracking concepts accessible to everyday users."
-      solution="We designed an immersive landing page experience that guides visitors through the user journey with animated sequences showing how the app works in real-life scenarios. We created an interactive demo that allowed potential users to experience the app's core features without downloading it."
-      results="The landing page won a health tech industry design award and achieved a 35% higher conversion rate than the previous website. App downloads increased by 60% in the three months following the landing page launch."
-      technologies={["React Native Web", "Lottie", "Framer Motion", "Chart.js", "TailwindCSS", "TypeScript"]}
+      challenge="Pulse Health needed a landing page that could effectively demonstrate their app's functionality and ease of use while conveying the medical accuracy and trustworthiness of their health monitoring solution."
+      solution="We created an interactive landing page that visually demonstrates the app's workflows through animated sequences and mockups. We incorporated subtle micro-interactions throughout to engage users while maintaining accessibility and focusing on key health benefits."
+      results="The landing page won a healthcare design award and increased app downloads by 118% within the first month. The bounce rate decreased from 65% to just 22%, indicating much stronger engagement with the content."
+      technologies={["React.js", "Lottie Animations", "Framer Motion", "Theme UI", "React Spring", "GSAP"]}
     />
   );
 };
