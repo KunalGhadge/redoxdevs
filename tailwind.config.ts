@@ -72,18 +72,6 @@ export default {
 					DEFAULT: '#0F172A',
 					light: '#1E293B',
 					dark: '#020617'
-				},
-				github: {
-					text: '#24292f',
-					bg: '#ffffff',
-					header: '#24292f',
-					button: '#2da44e',
-					'button-hover': '#2c974b',
-					muted: '#f6f8fa',
-					border: '#d0d7de',
-					link: '#0969da',
-					counter: '#afb8c1',
-					divider: '#d8dee4'
 				}
 			},
 			borderRadius: {
