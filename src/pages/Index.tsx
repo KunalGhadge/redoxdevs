@@ -9,6 +9,10 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import ToolsSection from "@/components/ToolsSection";
 import Footer from "@/components/Footer";
+import TrustBadgesSection from "@/components/TrustBadgesSection";
+import StatsSection from "@/components/StatsSection";
+import ClientLogosSection from "@/components/ClientLogosSection";
+import GuaranteesSection from "@/components/GuaranteesSection";
 
 const Index = () => {
   return (
@@ -16,10 +20,14 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <ClientLogosSection />
         <ServicesSection />
+        <TrustBadgesSection />
         <WorkSection />
+        <StatsSection />
         <ToolsSection />
         <ProcessSection />
+        <GuaranteesSection />
         <TestimonialsSection />
         <AboutSection />
         <ContactSection />
