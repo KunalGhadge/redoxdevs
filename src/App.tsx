@@ -9,9 +9,6 @@ import NotFound from "./pages/NotFound";
 import TechNovaLaunch from "./pages/projects/TechNovaLaunch";
 import FinEdgeBanking from "./pages/projects/FinEdgeBanking";
 import PulseHealthApp from "./pages/projects/PulseHealthApp";
-import VedicAyurveda from "./pages/projects/VedicAyurveda";
-import SwiftLearnEducation from "./pages/projects/SwiftLearnEducation";
-import EcoSolutions from "./pages/projects/EcoSolutions";
 
 const queryClient = new QueryClient();
 
@@ -26,9 +23,6 @@ const App = () => (
           <Route path="/project/technova-launch" element={<TechNovaLaunch />} />
           <Route path="/project/finedge-banking" element={<FinEdgeBanking />} />
           <Route path="/project/pulse-health-app" element={<PulseHealthApp />} />
-          <Route path="/project/vedic-ayurveda" element={<VedicAyurveda />} />
-          <Route path="/project/swiftlearn-education" element={<SwiftLearnEducation />} />
-          <Route path="/project/eco-solutions" element={<EcoSolutions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
