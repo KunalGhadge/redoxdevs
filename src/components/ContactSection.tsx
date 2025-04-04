@@ -24,25 +24,52 @@ const ContactSection = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "5d19bef2-0934-43a5-b7ec-c07286a93e54", // Web3Forms API Key
+          subject: `New message from ${formData.name} via REDOX Devs website`,
+          from_name: "REDOX Devs Website",
+          ...formData,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+        });
+      } else {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
       });
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -144,19 +171,15 @@ const ContactSection = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <Phone className="h-5 w-5 text-redox shrink-0 mt-1" />
-                <span>(555) 123-4567</span>
+                <span>(+91) 88798 89389</span>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-redox shrink-0 mt-1" />
-                <span>hello@redoxdevs.com</span>
+                <span>redoxdevs@gmail.com</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-redox shrink-0 mt-1" />
-                <span>
-                  123 Web Development Lane
-                  <br />
-                  San Francisco, CA 94103
-                </span>
+                <span>We are online for now!</span>
               </li>
             </ul>
           </div>

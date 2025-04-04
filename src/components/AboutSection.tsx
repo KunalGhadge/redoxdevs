@@ -1,18 +1,19 @@
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const team = [
   {
-    name: "Rahul Sharma",
+    name: "Kunal Ghadge",
     position: "Lead Developer & Designer",
-    image: "https://randomuser.me/api/portraits/men/76.jpg",
     bio: "10+ years of experience in web development with expertise in creating high-converting landing pages.",
+    initials: "KG"
   },
   {
-    name: "Priya Patel",
+    name: "Krishna Mishra",
     position: "Marketing Strategist & Researcher",
-    image: "https://randomuser.me/api/portraits/women/63.jpg",
     bio: "Expert in market research and digital strategy that helps businesses maximize landing page conversions.",
+    initials: "KM"
   }
 ];
 
@@ -68,17 +69,17 @@ const AboutSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {team.map((member, index) => (
             <Card key={index} className="border-gray-100 overflow-hidden">
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src={member.image} 
-                  alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h4 className="font-semibold text-xl text-navy-dark">{member.name}</h4>
-                <p className="text-redox mb-2">{member.position}</p>
-                <p className="text-navy-light">{member.bio}</p>
+              <CardContent className="p-6 flex items-start gap-4">
+                <Avatar className="h-16 w-16 bg-redox text-white">
+                  <AvatarFallback className="text-lg font-medium">
+                    {member.initials}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <h4 className="font-semibold text-xl text-navy-dark">{member.name}</h4>
+                  <p className="text-redox mb-2">{member.position}</p>
+                  <p className="text-navy-light">{member.bio}</p>
+                </div>
               </CardContent>
             </Card>
           ))}
