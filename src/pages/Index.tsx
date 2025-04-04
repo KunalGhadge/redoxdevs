@@ -7,12 +7,12 @@ import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
-import ToolsSection from "@/components/ToolsSection";
 import Footer from "@/components/Footer";
 import TrustBadgesSection from "@/components/TrustBadgesSection";
 import StatsSection from "@/components/StatsSection";
 import ClientLogosSection from "@/components/ClientLogosSection";
 import GuaranteesSection from "@/components/GuaranteesSection";
+import BudgetCalculatorSection from "@/components/BudgetCalculatorSection";
 
 const Index = () => {
   return (
@@ -25,7 +25,7 @@ const Index = () => {
         <TrustBadgesSection />
         <WorkSection />
         <StatsSection />
-        <ToolsSection />
+        <BudgetCalculatorSection />
         <ProcessSection />
         <GuaranteesSection />
         <TestimonialsSection />
