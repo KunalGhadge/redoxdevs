@@ -13,6 +13,7 @@ import StatsSection from "@/components/StatsSection";
 import ClientLogosSection from "@/components/ClientLogosSection";
 import GuaranteesSection from "@/components/GuaranteesSection";
 import BudgetCalculatorSection from "@/components/BudgetCalculatorSection";
+import ToolsSection from "@/components/ToolsSection";
 
 const Index = () => {
   return (
@@ -27,6 +28,7 @@ const Index = () => {
         <StatsSection />
         <BudgetCalculatorSection />
         <ProcessSection />
+        <ToolsSection />
         <GuaranteesSection />
         <TestimonialsSection />
         <AboutSection />
