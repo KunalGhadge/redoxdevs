@@ -1,18 +1,21 @@
 
+import { Suspense, lazy } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import ServicesSection from "@/components/ServicesSection";
-import WorkSection from "@/components/WorkSection";
-import ProcessSection from "@/components/ProcessSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import AboutSection from "@/components/AboutSection";
-import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import TrustBadgesSection from "@/components/TrustBadgesSection";
-import StatsSection from "@/components/StatsSection";
-import ClientLogosSection from "@/components/ClientLogosSection";
-import GuaranteesSection from "@/components/GuaranteesSection";
-import BudgetCalculatorSection from "@/components/BudgetCalculatorSection";
+
+// Lazy load components that are lower in the page
+const ClientLogosSection = lazy(() => import("@/components/ClientLogosSection"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const TrustBadgesSection = lazy(() => import("@/components/TrustBadgesSection"));
+const WorkSection = lazy(() => import("@/components/WorkSection"));
+const StatsSection = lazy(() => import("@/components/StatsSection"));
+const BudgetCalculatorSection = lazy(() => import("@/components/BudgetCalculatorSection"));
+const ProcessSection = lazy(() => import("@/components/ProcessSection"));
+const GuaranteesSection = lazy(() => import("@/components/GuaranteesSection"));
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
 
 const Index = () => {
   return (
@@ -20,17 +23,19 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <ClientLogosSection />
-        <ServicesSection />
-        <TrustBadgesSection />
-        <WorkSection />
-        <StatsSection />
-        <BudgetCalculatorSection />
-        <ProcessSection />
-        <GuaranteesSection />
-        <TestimonialsSection />
-        <AboutSection />
-        <ContactSection />
+        <Suspense fallback={<div className="h-20 bg-gray-100 animate-pulse" />}>
+          <ClientLogosSection />
+          <ServicesSection />
+          <TrustBadgesSection />
+          <WorkSection />
+          <StatsSection />
+          <BudgetCalculatorSection />
+          <ProcessSection />
+          <GuaranteesSection />
+          <TestimonialsSection />
+          <AboutSection />
+          <ContactSection />
+        </Suspense>
       </main>
       <Footer />
     </div>

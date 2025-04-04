@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 
@@ -32,6 +32,7 @@ const stats = [
 
 const StatsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,7 +45,7 @@ const StatsSection = () => {
       { threshold: 0.1 }
     );
 
-    const section = document.getElementById("stats");
+    const section = sectionRef.current;
     if (section) observer.observe(section);
 
     return () => {
@@ -53,7 +54,11 @@ const StatsSection = () => {
   }, []);
 
   return (
-    <section id="stats" className="py-16 bg-gradient-to-r from-navy-dark to-redox-dark text-white">
+    <section 
+      ref={sectionRef} 
+      id="stats" 
+      className="py-16 bg-gradient-to-r from-navy-dark to-redox-dark text-white relative"
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
