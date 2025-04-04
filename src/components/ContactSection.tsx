@@ -2,9 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -29,6 +30,7 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
+      // Using the provided API key
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -36,7 +38,7 @@ const ContactSection = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "5d19bef2-0934-43a5-b7ec-c07286a93e54", // Web3Forms API Key
+          access_key: "5d19bef2-0934-43a5-b7ec-c07286a93e54", // Your provided Web3Forms API Key
           subject: `New message from ${formData.name} via REDOX Devs website`,
           from_name: "REDOX Devs Website",
           ...formData,
@@ -74,17 +76,29 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="section bg-navy-dark text-white">
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <motion.div 
+        className="text-center max-w-3xl mx-auto mb-16"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Get in <span className="text-redox">Touch</span>
         </h2>
         <p className="text-lg text-gray-300">
           Ready to start your project? Contact us today for a free consultation.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2">
+        <motion.div 
+          className="lg:col-span-2"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -158,29 +172,58 @@ const ContactSection = () => {
             </div>
             <Button
               type="submit"
-              className="bg-redox hover:bg-redox-dark text-white w-full md:w-auto px-8"
+              className="bg-redox hover:bg-redox-dark text-white w-full md:w-auto px-8 group"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              <span className="group-hover:mr-2 transition-all">
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </span>
+              {!isSubmitting && (
+                <Send className="w-4 h-4 ml-2 inline-block opacity-0 group-hover:opacity-100 transition-all" />
+              )}
             </Button>
           </form>
-        </div>
-        <div className="space-y-8">
+        </motion.div>
+        <motion.div 
+          className="space-y-8"
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div>
             <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+              >
                 <Phone className="h-5 w-5 text-redox shrink-0 mt-1" />
                 <span>(+91) 88798 89389</span>
-              </li>
-              <li className="flex items-start gap-3">
+              </motion.li>
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
                 <Mail className="h-5 w-5 text-redox shrink-0 mt-1" />
                 <span>redoxdevs@gmail.com</span>
-              </li>
-              <li className="flex items-start gap-3">
+              </motion.li>
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+              >
                 <MapPin className="h-5 w-5 text-redox shrink-0 mt-1" />
                 <span>We are online for now!</span>
-              </li>
+              </motion.li>
             </ul>
           </div>
           <div>
@@ -200,7 +243,7 @@ const ContactSection = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -6,13 +6,13 @@ import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-// Updated portfolio items - removed incomplete projects
+// Updated portfolio items with proper professional images
 const portfolioItems = [
   {
     category: "landing-page",
     title: "TechNova Launch",
     description: "High-converting landing page with interactive animations for a tech startup's product launch.",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     features: "Motion effects, 3D elements, SVG animations",
     path: "/project/technova-launch"
   },
@@ -20,7 +20,7 @@ const portfolioItems = [
     category: "landing-page",
     title: "FinEdge Banking",
     description: "Futuristic landing page for a digital banking solution with animated data visualizations.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     features: "Particle effects, scroll animations, glassmorphism",
     path: "/project/finedge-banking"
   },
@@ -28,7 +28,7 @@ const portfolioItems = [
     category: "landing-page",
     title: "Pulse Health App",
     description: "Award-winning landing page with interactive features and animated user flows.",
-    image: "https://images.unsplash.com/photo-1581093196277-9f6070dd1dc3",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     features: "Lottie animations, micro-interactions, theme switching",
     path: "/project/pulse-health-app"
   }

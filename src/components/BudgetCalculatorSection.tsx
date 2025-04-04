@@ -53,28 +53,40 @@ const BudgetCalculatorSection = () => {
   const [userBudget, setUserBudget] = useState<string>("");
   const [showNegotiableMessage, setShowNegotiableMessage] = useState<boolean>(false);
   const [websiteTopic, setWebsiteTopic] = useState<string>("");
-  const [showQuickStart, setShowQuickStart] = useState<boolean>(true);
   const [savingsPercentage, setSavingsPercentage] = useState<number>(15); // Default savings percentage
   
   // Conversion rate (approximate)
   const usdToInr = 82.5;
   
-  // Updated cost calculations based on our new rates
-  // Base cost calculations
-  const basePageCost = currency === "USD" ? 100 : 100 * usdToInr;
-  const baseComplexityCost = currency === "USD" ? 250 : 250 * usdToInr;
+  // Updated cost calculations based on new rates
+  // Base page cost updated
+  const basePageCost = currency === "USD" ? 36 : 3000;
   
-  // Calculate costs
+  // Calculate page cost
   const pageCost = pages * basePageCost;
-  const complexityCost = complexity * baseComplexityCost;
+  
+  // Complexity cost based on level (1-5)
+  const getComplexityCost = () => {
+    if (complexity === 1) return currency === "USD" ? 90 : 7500;
+    if (complexity === 5) return currency === "USD" ? 145 : 12000;
+    
+    // Linear interpolation between min and max values
+    const ratio = (complexity - 1) / 4;
+    const minCost = currency === "USD" ? 90 : 7500;
+    const maxCost = currency === "USD" ? 145 : 12000;
+    
+    return minCost + Math.round(ratio * (maxCost - minCost));
+  };
+  
+  const complexityCost = getComplexityCost();
   
   // Updated feature costs
   const featureCosts = {
-    responsive: currency === "USD" ? 300 : 300 * usdToInr,
-    animations: currency === "USD" ? 375 : 375 * usdToInr,
-    contentManagement: currency === "USD" ? 550 : 550 * usdToInr,
-    seo: currency === "USD" ? 425 : 425 * usdToInr,
-    analytics: currency === "USD" ? 275 : 275 * usdToInr,
+    responsive: currency === "USD" ? 120 : 10000,
+    animations: currency === "USD" ? 180 : 15000,
+    contentManagement: currency === "USD" ? 215 : 18000,
+    seo: currency === "USD" ? 150 : 12500,
+    analytics: currency === "USD" ? 90 : 7500,
   };
   
   // Calculate total feature cost
@@ -85,11 +97,23 @@ const BudgetCalculatorSection = () => {
     return total;
   }, 0);
   
-  // Time factor - rush jobs cost more
-  const timelineFactor = timeline < 15 ? 1.3 : timeline < 30 ? 1.1 : 1;
+  // Time factor - rush jobs cost more, relaxed jobs cost less
+  const getTimelineFactor = () => {
+    if (timeline <= 7) return { factor: 1.3, extra: currency === "USD" ? 120 : 10000 };
+    if (timeline < 14) return { factor: 1.2, extra: currency === "USD" ? 60 : 5000 };
+    if (timeline <= 21) return { factor: 1.0, extra: 0 }; // Standard
+    return { factor: 0.95, discount: currency === "USD" ? 60 : 5000 }; // Relaxed
+  };
+  
+  const timelineAdjustment = getTimelineFactor();
   
   // Calculate final estimate
-  const estimatedCost = Math.round((pageCost + complexityCost + featureCost) * timelineFactor);
+  const subtotal = pageCost + complexityCost + featureCost;
+  let estimatedCost = timelineAdjustment.factor ? Math.round(subtotal * timelineAdjustment.factor) : subtotal;
+  
+  // Apply any extra costs or discounts
+  if (timelineAdjustment.extra) estimatedCost += timelineAdjustment.extra;
+  if (timelineAdjustment.discount) estimatedCost -= timelineAdjustment.discount;
   
   // Traditional agency rates (for comparison)
   const traditionalAgencyMultiplier = 1.25; // Traditional agencies charge about 25% more
@@ -178,7 +202,6 @@ const BudgetCalculatorSection = () => {
     setComplexity(recommendations.complexity);
     setFeatures(recommendations.features);
     setTimeline(recommendations.timeline);
-    setShowQuickStart(false);
     
     toast({
       title: "Recommendations Applied!",
@@ -260,61 +283,59 @@ const BudgetCalculatorSection = () => {
           </p>
         </div>
         
-        {/* Quick Start Card */}
-        {showQuickStart && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-10 border-2 border-dashed border-redox/30 animate-fade-in">
-            <h3 className="text-xl font-bold text-navy-dark mb-4">Quick Start Wizard</h3>
-            <p className="text-navy-light mb-6">
-              Tell us your budget and what your website is about, and we'll recommend the best options for you.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <Label htmlFor="quick-budget" className="block mb-2">Your Budget ({currency})</Label>
-                <div className="flex items-center">
-                  <div className="relative w-full">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      {currency === "USD" ? (
-                        <BadgeDollarSign className="h-4 w-4 text-gray-400" />
-                      ) : (
-                        <BadgeIndianRupee className="h-4 w-4 text-gray-400" />
-                      )}
-                    </div>
-                    <Input 
-                      id="quick-budget" 
-                      type="text" 
-                      placeholder={`Enter your budget in ${currency}`}
-                      className="pl-10"
-                      value={userBudget}
-                      onChange={(e) => setUserBudget(e.target.value)}
-                    />
+        {/* Quick Start Card - Always visible */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-10 border-2 border-dashed border-redox/30 animate-fade-in">
+          <h3 className="text-xl font-bold text-navy-dark mb-4">Quick Start Wizard</h3>
+          <p className="text-navy-light mb-6">
+            Tell us your budget and what your website is about, and we'll recommend the best options for you.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <Label htmlFor="quick-budget" className="block mb-2">Your Budget ({currency})</Label>
+              <div className="flex items-center">
+                <div className="relative w-full">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    {currency === "USD" ? (
+                      <BadgeDollarSign className="h-4 w-4 text-gray-400" />
+                    ) : (
+                      <BadgeIndianRupee className="h-4 w-4 text-gray-400" />
+                    )}
                   </div>
+                  <Input 
+                    id="quick-budget" 
+                    type="text" 
+                    placeholder={`Enter your budget in ${currency}`}
+                    className="pl-10"
+                    value={userBudget}
+                    onChange={(e) => setUserBudget(e.target.value)}
+                  />
                 </div>
               </div>
-              
-              <div>
-                <Label htmlFor="website-topic" className="block mb-2">What is your website about?</Label>
-                <Input 
-                  id="website-topic" 
-                  type="text" 
-                  placeholder="E.g., Business, Portfolio, E-commerce, Blog..."
-                  value={websiteTopic}
-                  onChange={(e) => setWebsiteTopic(e.target.value)}
-                />
-              </div>
             </div>
             
-            <div className="mt-6 flex justify-end">
-              <Button 
-                className="flex items-center"
-                onClick={applyRecommendations}
-              >
-                Get Recommendations
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <div>
+              <Label htmlFor="website-topic" className="block mb-2">What is your website about?</Label>
+              <Input 
+                id="website-topic" 
+                type="text" 
+                placeholder="E.g., Business, Portfolio, E-commerce, Blog..."
+                value={websiteTopic}
+                onChange={(e) => setWebsiteTopic(e.target.value)}
+              />
             </div>
           </div>
-        )}
+          
+          <div className="mt-6 flex justify-end">
+            <Button 
+              className="flex items-center"
+              onClick={applyRecommendations}
+            >
+              Get Recommendations
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Calculator Controls */}
@@ -476,9 +497,19 @@ const BudgetCalculatorSection = () => {
                   <span>Standard</span>
                   <span>Relaxed</span>
                 </div>
-                {timeline < 15 && (
+                {timeline <= 7 && (
                   <p className="text-xs text-redox mt-2 flex items-center">
-                    <Info className="w-3 h-3 mr-1" /> Rush timelines incur a 30% premium
+                    <Info className="w-3 h-3 mr-1" /> Rush timelines incur a 30% premium plus {formatCurrency(currency === "USD" ? 120 : 10000)} extra
+                  </p>
+                )}
+                {timeline > 7 && timeline < 14 && (
+                  <p className="text-xs text-amber-600 mt-2 flex items-center">
+                    <Info className="w-3 h-3 mr-1" /> Expedited timelines incur a 20% premium plus {formatCurrency(currency === "USD" ? 60 : 5000)} extra
+                  </p>
+                )}
+                {timeline > 21 && (
+                  <p className="text-xs text-green-600 mt-2 flex items-center">
+                    <Info className="w-3 h-3 mr-1" /> Relaxed timelines receive a {formatCurrency(currency === "USD" ? 60 : 5000)} discount
                   </p>
                 )}
               </div>
@@ -562,10 +593,24 @@ const BudgetCalculatorSection = () => {
                     <span className="font-medium">{formatCurrency(featureCost)}</span>
                   </div>
                   
-                  {timeline < 15 && (
+                  {timeline <= 7 && (
                     <div className="flex justify-between items-center pb-2 border-b border-gray-100">
-                      <span className="text-navy-light">Rush Fee</span>
-                      <span className="font-medium text-redox">+30%</span>
+                      <span className="text-navy-light">Rush Fee (7 days)</span>
+                      <span className="font-medium text-redox">+30% + {formatCurrency(currency === "USD" ? 120 : 10000)}</span>
+                    </div>
+                  )}
+                  
+                  {timeline > 7 && timeline < 14 && (
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-100">
+                      <span className="text-navy-light">Expedited Fee</span>
+                      <span className="font-medium text-amber-600">+20% + {formatCurrency(currency === "USD" ? 60 : 5000)}</span>
+                    </div>
+                  )}
+                  
+                  {timeline > 21 && (
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-100">
+                      <span className="text-navy-light">Relaxed Timeline Discount</span>
+                      <span className="font-medium text-green-600">-{formatCurrency(currency === "USD" ? 60 : 5000)}</span>
                     </div>
                   )}
                 </div>
@@ -709,35 +754,164 @@ const BudgetCalculatorSection = () => {
         </div>
         
         <div className="mt-12 bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-xl font-bold mb-4 text-navy-dark">Frequently Asked Questions</h3>
+          <h3 className="text-xl font-bold mb-4 text-navy-dark">Pricing Breakdown</h3>
           
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-medium text-navy-dark">Are these prices negotiable?</h4>
-              <p className="text-navy-light mt-1">
-                <span className="text-redox font-medium">Yes, absolutely!</span> We understand that every project is unique and budgets can vary. Our prices are flexible, and we're always ready to work with you to find a solution that meets both your requirements and budget constraints.
-              </p>
-            </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (INR)</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (USD)</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Number of Pages (per page)</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹3,000</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$36</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td colSpan={3} className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Design Complexity</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Basic</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹7,500</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$90</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Custom</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹12,000</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$145</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td colSpan={3} className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Features Needed</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Responsive Design</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹10,000</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$120</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Custom Animations</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹15,000</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$180</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Content Management (CMS)</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹18,000</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$215</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- SEO Optimization</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹12,500</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$150</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Analytics Setup</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹7,500</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$90</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td colSpan={3} className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Delivery Timeline</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Rush (7 days)</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹10,000 extra</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$120 extra</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Standard (14-21 days)</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">No Extra Cost</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">No Extra Cost</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 pl-10">- Relaxed (30+ days)</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹5,000 Discount</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$60 Discount</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <h4 className="font-bold text-navy-dark text-lg mb-3">💰 Example Price Calculation</h4>
+            <p className="text-navy-light mb-3"><strong>Scenario:</strong> 3-page website with custom design, responsive design + SEO, standard timeline</p>
             
-            <div>
-              <h4 className="font-medium text-navy-dark">What if my project is more complex?</h4>
-              <p className="text-navy-light mt-1">
-                For highly specialized or complex projects, we recommend scheduling a consultation to discuss your requirements in detail so we can provide a more accurate quote.
-              </p>
-            </div>
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-white">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (INR)</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (USD)</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Pages (3)</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹9,000</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$108</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Custom Design</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹12,000</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$145</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Responsive Design</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹10,000</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$120</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">SEO Optimization</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹12,500</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$150</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">Total</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">₹43,500</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">$523</td>
+                </tr>
+              </tbody>
+            </table>
             
-            <div>
-              <h4 className="font-medium text-navy-dark">How much can I save compared to traditional agencies?</h4>
-              <p className="text-navy-light mt-1">
-                Our tech-forward approach allows us to deliver the same quality for 15-25% less than traditional agencies. We achieve this through efficient workflows and advanced development techniques, not by cutting corners.
-              </p>
-            </div>
+            <p className="mt-3 text-green-600 font-semibold flex items-center">
+              <CheckCircle2 className="h-5 w-5 mr-2" />
+              You save 15% compared to traditional agencies!
+            </p>
+          </div>
+          
+          <div className="mt-8">
+            <h3 className="text-xl font-bold mb-4 text-navy-dark">Frequently Asked Questions</h3>
             
-            <div>
-              <h4 className="font-medium text-navy-dark">Do you offer payment plans?</h4>
-              <p className="text-navy-light mt-1">
-                Yes, we offer flexible payment options including milestone-based payments. We typically require a 40% deposit to begin work with the remaining balance paid at agreed milestones.
-              </p>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-medium text-navy-dark">Are these prices negotiable?</h4>
+                <p className="text-navy-light mt-1">
+                  <span className="text-redox font-medium">Yes, absolutely!</span> We understand that every project is unique and budgets can vary. Our prices are flexible, and we're always ready to work with you to find a solution that meets both your requirements and budget constraints.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-navy-dark">What if my project is more complex?</h4>
+                <p className="text-navy-light mt-1">
+                  For highly specialized or complex projects, we recommend scheduling a consultation to discuss your requirements in detail so we can provide a more accurate quote.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-navy-dark">How much can I save compared to traditional agencies?</h4>
+                <p className="text-navy-light mt-1">
+                  Our tech-forward approach allows us to deliver the same quality for 15-25% less than traditional agencies. We achieve this through efficient workflows and advanced development techniques, not by cutting corners.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-navy-dark">Do you offer payment plans?</h4>
+                <p className="text-navy-light mt-1">
+                  Yes, we offer flexible payment options including milestone-based payments. We typically require a 40% deposit to begin work with the remaining balance paid at agreed milestones.
+                </p>
+              </div>
             </div>
           </div>
         </div>
