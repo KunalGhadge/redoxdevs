@@ -1,0 +1,48 @@
+
+/* Budget Calculator Responsive Fixes */
+.price-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.price-column {
+  min-width: 90px;
+  max-width: 150px;
+}
+
+.price-scenario {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.price-scenario-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.price-scenario-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.price-scenario-row:last-child {
+  border-bottom: none;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .price-table {
+    font-size: 0.875rem;
+  }
+  
+  .price-column {
+    min-width: 70px;
+  }
+}
