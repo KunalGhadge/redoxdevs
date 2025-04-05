@@ -834,53 +834,6 @@ const BudgetCalculatorSection = () => {
             </table>
           </div>
           
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h4 className="font-bold text-navy-dark text-lg mb-3">💰 Example Price Calculation</h4>
-            <p className="text-navy-light mb-3"><strong>Scenario:</strong> 3-page website with custom design, responsive design + SEO, standard timeline</p>
-            
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-white">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (INR)</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price (USD)</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Pages (3)</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹9,000</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$108</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Custom Design</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹12,000</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$145</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Responsive Design</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹10,000</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$120</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">SEO Optimization</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">₹12,500</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">$150</td>
-                </tr>
-                <tr className="bg-gray-50">
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">Total</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">₹43,500</td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm font-bold text-navy-dark">$523</td>
-                </tr>
-              </tbody>
-            </table>
-            
-            <p className="mt-3 text-green-600 font-semibold flex items-center">
-              <CheckCircle2 className="h-5 w-5 mr-2" />
-              You save 15% compared to traditional agencies!
-            </p>
-          </div>
-          
           <div className="mt-8">
             <h3 className="text-xl font-bold mb-4 text-navy-dark">Frequently Asked Questions</h3>
             
