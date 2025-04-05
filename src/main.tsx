@@ -2,6 +2,7 @@
 import { createRoot } from 'react-dom/client'
 import { lazy, Suspense } from 'react'
 import './index.css'
+import './styles/budgetCalculator.css'
 
 // Lazy load the main App component
 const App = lazy(() => import('./App.tsx'));

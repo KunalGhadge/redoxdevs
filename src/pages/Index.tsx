@@ -17,6 +17,7 @@ const GuaranteesSection = lazy(() => import("@/components/GuaranteesSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
+const FAQSection = lazy(() => import("@/components/FAQSection"));
 
 // Better section loading fallback
 const SectionFallback = ({ height = "h-40", title = "" }: { height?: string, title?: string }) => (
@@ -80,6 +81,10 @@ const Index = () => {
         
         <Suspense fallback={<SectionFallback height="h-48" />}>
           <GuaranteesSection />
+        </Suspense>
+        
+        <Suspense fallback={<SectionFallback title="FAQ" height="h-56" />}>
+          <FAQSection />
         </Suspense>
         
         <Suspense fallback={<SectionFallback title="Testimonials" height="h-56" />}>
