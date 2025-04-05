@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
@@ -17,7 +17,6 @@ const HeroSection = () => {
 
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.8], [0, 100]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
   
   useEffect(() => {
     // Delay the animation trigger slightly to ensure better performance
@@ -71,42 +70,14 @@ const HeroSection = () => {
     },
   };
 
-  // New floating animation variants
-  const floatingAnimation = {
-    initial: { y: 0 },
-    animate: { 
-      y: [-10, 10, -10],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        repeatType: "loop" as const,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const pulseAnimation = {
-    initial: { scale: 1, opacity: 0.7 },
-    animate: { 
-      scale: [1, 1.05, 1],
-      opacity: [0.7, 0.9, 0.7],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        repeatType: "loop" as const,
-        ease: "easeInOut"
-      }
-    }
-  };
-
   return (
     <motion.section
       ref={sectionRef}
       id="hero"
       className="relative pt-24 pb-12 md:pt-36 md:pb-24 px-4 md:px-6 overflow-hidden"
-      style={{ opacity, y, scale }}
+      style={{ opacity, y }}
     >
-      {/* Enhanced animated background elements */}
+      {/* Animated background elements - simplified for mobile */}
       <div className="absolute inset-0 z-0">
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
@@ -115,6 +86,7 @@ const HeroSection = () => {
           className="absolute -top-20 -right-20 w-48 h-48 md:w-64 md:h-64 bg-redox/10 rounded-full blur-3xl"
         ></motion.div>
         
+        {/* Reduced number of background elements on mobile */}
         {!isMobile && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
@@ -125,55 +97,19 @@ const HeroSection = () => {
         )}
         
         <motion.div 
-          variants={pulseAnimation}
-          initial="initial"
-          animate={isLoaded ? "animate" : "initial"}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: isLoaded ? 0.8 : 0, scale: isLoaded ? 1 : 0.8 }}
+          transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 md:w-96 h-72 md:h-96 bg-navy-light/5 rounded-full blur-3xl"
         ></motion.div>
         
-        {/* Enhanced grid pattern with improved animation */}
+        {/* Grid pattern with optimized animation */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 0.4, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 2, delay: 0.5 }}
-            className="absolute h-full w-full bg-gradient-to-b from-transparent via-redox/5 to-transparent"
-          ></motion.div>
-        </motion.div>
-        
-        {/* New floating particles (desktop only) */}
-        {!isMobile && (
-          <>
-            <AnimatePresence>
-              {isLoaded && (
-                <>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.6, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.8, delay: 1.2 }}
-                    variants={floatingAnimation}
-                    className="absolute top-1/4 right-1/4 w-6 h-6 bg-redox/20 rounded-full blur-sm"
-                  ></motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.3, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.8, delay: 1.5 }}
-                    variants={floatingAnimation}
-                    className="absolute bottom-1/3 left-1/3 w-8 h-8 bg-navy-light/30 rounded-full blur-sm"
-                    style={{ animationDelay: "1s" }}
-                  ></motion.div>
-                </>
-              )}
-            </AnimatePresence>
-          </>
-        )}
+        ></motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -219,45 +155,30 @@ const HeroSection = () => {
               transition={{ duration: 0.7, delay: 0.9 }}
               className="flex flex-wrap gap-4"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
+                onClick={scrollToContact}
+                className="bg-redox hover:bg-redox-dark text-white px-4 sm:px-6 py-4 sm:py-6 text-sm sm:text-lg relative overflow-hidden group w-full sm:w-auto"
               >
-                <Button
-                  onClick={scrollToContact}
-                  className="bg-redox hover:bg-redox-dark text-white px-4 sm:px-6 py-4 sm:py-6 text-sm sm:text-lg relative overflow-hidden group w-full sm:w-auto"
-                >
-                  <span className="relative z-10 flex items-center justify-center">
-                    Get Started
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                    >
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transform group-hover:translate-x-1 transition-transform" />
-                    </motion.span>
-                  </span>
-                  <span className="absolute inset-0 bg-redox-dark transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
-                </Button>
-              </motion.div>
+                <span className="relative z-10 flex items-center justify-center">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transform group-hover:translate-x-1 transition-transform" />
+                </span>
+                <span className="absolute inset-0 bg-redox-dark transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+              </Button>
               
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
+                variant="outline"
+                className="border-navy-light text-navy-dark hover:text-redox hover:border-redox px-4 sm:px-6 py-4 sm:py-6 text-sm sm:text-lg group w-full sm:w-auto"
+                onClick={() => {
+                  const workSection = document.getElementById("work");
+                  if (workSection) {
+                    workSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
               >
-                <Button
-                  variant="outline"
-                  className="border-navy-light text-navy-dark hover:text-redox hover:border-redox px-4 sm:px-6 py-4 sm:py-6 text-sm sm:text-lg group w-full sm:w-auto"
-                  onClick={() => {
-                    const workSection = document.getElementById("work");
-                    if (workSection) {
-                      workSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  See Our Work
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-redox group-hover:w-full transition-all duration-300"></span>
-                </Button>
-              </motion.div>
+                See Our Work
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-redox group-hover:w-full transition-all duration-300"></span>
+              </Button>
             </motion.div>
             
             <motion.div 
@@ -273,7 +194,6 @@ const HeroSection = () => {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 1.3 + (i * 0.1) }}
-                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
                     className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-redox-light flex items-center justify-center text-redox text-xs md:text-sm font-bold"
                   >
                     {initials}
@@ -285,14 +205,7 @@ const HeroSection = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.6 }}
               >
-                <motion.p 
-                  className="text-sm md:text-base text-navy-dark font-medium"
-                  variants={floatingAnimation}
-                  animate="animate"
-                  style={{ animationDelay: "0.5s" }}
-                >
-                  Trusted by 100+ businesses
-                </motion.p>
+                <p className="text-sm md:text-base text-navy-dark font-medium">Trusted by 100+ businesses</p>
               </motion.div>
             </motion.div>
           </div>
@@ -308,26 +221,18 @@ const HeroSection = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.6 }}
                 transition={{ delay: 0.8, duration: 1.5 }}
-                variants={pulseAnimation}
-                animate="animate"
-                className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 bg-redox/20 rounded-full blur-2xl"
+                className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 bg-redox/20 rounded-full blur-2xl animate-pulse-slow"
               ></motion.div>
               
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.6 }}
                 transition={{ delay: 1, duration: 1.5 }}
-                variants={pulseAnimation}
-                animate="animate"
-                className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-redox/20 rounded-full blur-2xl"
+                className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-redox/20 rounded-full blur-2xl animate-pulse-slow"
                 style={{ animationDelay: "1.5s" }}
               ></motion.div>
               
-              <motion.div 
-                className="bg-gradient-to-br from-redox/5 to-navy-dark/5 rounded-xl md:rounded-2xl border border-gray-100 p-2 backdrop-blur-sm"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.5 }}
-              >
+              <div className="bg-gradient-to-br from-redox/5 to-navy-dark/5 rounded-xl md:rounded-2xl border border-gray-100 p-2 backdrop-blur-sm">
                 <motion.div 
                   className="relative overflow-hidden rounded-lg md:rounded-xl"
                   whileHover={{ scale: 1.02 }}
@@ -344,33 +249,17 @@ const HeroSection = () => {
                     transition={{ duration: 1.2, ease: "easeOut" }}
                   />
                   
-                  {/* Enhanced code snippet animations */}
+                  {/* Simplified code snippets for mobile */}
                   <motion.div 
                     className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-md rounded-lg p-2 md:p-3 shadow-lg"
                     initial={{ y: 20, opacity: 0 }}
                     animate={isLoaded ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                     transition={{ delay: 1.2, duration: 0.6 }}
-                    whileHover={{ 
-                      y: -5, 
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                    }}
                   >
                     <div className="flex items-center gap-1 mb-1 md:mb-2">
-                      <motion.div 
-                        className="w-2 h-2 rounded-full bg-red-400"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ repeat: Infinity, duration: 2, delay: 0.1 }}
-                      ></motion.div>
-                      <motion.div 
-                        className="w-2 h-2 rounded-full bg-yellow-400"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
-                      ></motion.div>
-                      <motion.div 
-                        className="w-2 h-2 rounded-full bg-green-400"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
-                      ></motion.div>
+                      <motion.div className="w-2 h-2 rounded-full bg-red-400"></motion.div>
+                      <motion.div className="w-2 h-2 rounded-full bg-yellow-400"></motion.div>
+                      <motion.div className="w-2 h-2 rounded-full bg-green-400"></motion.div>
                     </div>
                     <div className="text-[10px] md:text-xs font-mono text-navy-dark">
                       <TypewriterEffect text="const convert = true;" delay={1.5} />
@@ -378,31 +267,23 @@ const HeroSection = () => {
                     </div>
                   </motion.div>
                   
-                  {/* Enhanced floating elements with improved animations */}
+                  {/* Floating elements - conditionally shown based on screen size */}
                   {!isMobile && (
                     <motion.div
                       className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg"
                       initial={{ y: 20, opacity: 0 }}
                       animate={isLoaded ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                       transition={{ delay: 1.8, duration: 0.6 }}
-                      variants={floatingAnimation}
-                      whileHover={{ y: -5, x: 3 }}
+                      whileHover={{ y: -5 }}
                     >
                       <div className="flex items-center gap-2">
-                        <motion.div 
-                          className="w-3 h-3 rounded-full bg-redox"
-                          animate={{ 
-                            scale: [1, 1.5, 1],
-                            opacity: [0.7, 1, 0.7]
-                          }}
-                          transition={{ repeat: Infinity, duration: 1.5 }}
-                        ></motion.div>
+                        <div className="w-3 h-3 rounded-full bg-redox animate-ping opacity-75"></div>
                         <div className="text-xs font-semibold text-navy-dark">Live Preview</div>
                       </div>
                     </motion.div>
                   )}
                 </motion.div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
