@@ -8,15 +8,15 @@ const team = [
   {
     name: "Kunal Ghadge",
     position: "Lead Developer & Designer",
-    bio: "10+ years of experience in web development with expertise in creating high-converting landing pages.",
+    bio: "3+ years of experience in web development with expertise in creating high-converting landing pages.",
     initials: "KG",
     icon: Code
   },
   {
-    name: "Krishna Mishra",
+    name: "Hitesh Harle",
     position: "Marketing Strategist & Researcher",
     bio: "Expert in market research and digital strategy that helps businesses maximize landing page conversions.",
-    initials: "KM",
+    initials: "HH",
     icon: LineChart
   }
 ];
