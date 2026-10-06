@@ -7,12 +7,12 @@ const GuaranteesSection = () => {
     {
       icon: <ShieldCheck className="h-10 w-10 text-redox" />,
       title: "100% Satisfaction Guarantee",
-      description: "If you're not completely satisfied with our work, we'll revise until you are - at no extra cost."
+      description: "If you're not completely satisfied with our work, we'll revise and refine until it meets your highest standards."
     },
     {
       icon: <Clock className="h-10 w-10 text-redox" />,
       title: "On-Time Delivery Promise",
-      description: "We commit to delivering your project by the agreed deadline, or you'll receive a discount."
+      description: "We commit to delivering your project strictly by the agreed deadline, ensuring your launch stays on schedule."
     },
     {
       icon: <Sparkles className="h-10 w-10 text-redox" />,
@@ -35,7 +35,7 @@ const GuaranteesSection = () => {
             Our <span className="text-redox">Guarantees</span>
           </h2>
           <p className="text-navy-light">
-            We stand behind our work with promises that protect your investment and ensure your satisfaction.
+            We stand behind our work with promises that ensure your satisfaction and project success.
           </p>
         </motion.div>
 

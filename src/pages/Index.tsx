@@ -11,7 +11,6 @@ const ServicesSection = lazy(() => import("@/components/ServicesSection"));
 const TrustBadgesSection = lazy(() => import("@/components/TrustBadgesSection"));
 const WorkSection = lazy(() => import("@/components/WorkSection"));
 const StatsSection = lazy(() => import("@/components/StatsSection"));
-const BudgetCalculatorSection = lazy(() => import("@/components/BudgetCalculatorSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const GuaranteesSection = lazy(() => import("@/components/GuaranteesSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
@@ -68,10 +67,6 @@ const Index = () => {
         
         <Suspense fallback={<SectionFallback title="Stats" height="h-48" />}>
           <StatsSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionFallback title="Budget Calculator" height="h-64" />}>
-          <BudgetCalculatorSection />
         </Suspense>
         
         <Suspense fallback={<SectionFallback title="Our Process" height="h-56" />}>
